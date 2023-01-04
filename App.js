@@ -1,11 +1,33 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDom from "react-dom/client";
 
-const heading = React.createElement("h1", { id: "heading1" }, "Heading 1");
-const heading2 = React.createElement("h2", null, "Heading 2");
-const parent = React.createElement("div", {}, [heading, heading2]);
+import logo from "./images/logo.jpg";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-console.log(heading, heading2);
+const Header = () => {
+  return (
+    <header className="header">
+      <div className="logo">
+        <img src={logo} />
+      </div>
+      <div className="search">
+        <div>
+          <input type="text" />
+          <div className="search_icon">
+            <i className="fa fa-regular fa-user"></i>
+          </div>
+        </div>
+      </div>
+      <div className="user_icon">
+        <i className="fa fa-regular fa-user"></i>
+      </div>
+    </header>
+  );
+};
 
-root.render(parent);
+const App = () => {
+  return <Header />;
+};
+
+const root = ReactDom.createRoot(document.getElementById("root"));
+
+root.render(<App />);
