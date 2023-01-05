@@ -16,7 +16,7 @@ body{
 .header .logo{
     grid-column: 1/2;
     grid-row: 1;
-    width: 45%;
+    width: 105px;
 }
 
 .header .logo>img{
@@ -53,6 +53,7 @@ body{
 .header .search>div>input :focus-visible{
     outline: none !important;
 }
+
 
 .header .search_icon{
     height: 32px;

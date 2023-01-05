@@ -11,9 +11,9 @@ const Header = () => {
       </div>
       <div className="search">
         <div>
-          <input type="text" />
+          <input type="text"  placeholder="Search..."/>
           <div className="search_icon">
-            <i className="fa fa-regular fa-user"></i>
+          <i class="fa fa-search" aria-hidden="true"></i>
           </div>
         </div>
       </div>
