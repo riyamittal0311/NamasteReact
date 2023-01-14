@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Restaurant from "./Restaurant";
-import { restaurantList } from "../config";
+import Shimmer from "./Shimmer";
 
 const debounce = (delay, fn) => {
   let timer;
@@ -16,23 +16,44 @@ const debounce = (delay, fn) => {
 };
 
 const Body = () => {
-  const [searchTxt, setSearchTxt] = useState();
-  const [restaurants, setRestaurants] = useState(restaurantList);
+  const [searchTxt, setSearchTxt] = useState("");
+  const [restaurants, setRestaurants] = useState([]);
+  const [allRestaurants, setAllRestaurants] = useState([]);
+
+  useEffect(() => {
+    fetchRestaurants();
+  }, []);
+
+  const fetchRestaurants = async () => {
+    try {
+      const data = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7330075&lng=77.1093233&page_type=DESKTOP_WEB_LISTING"
+      );
+      const json = await data.json();
+      setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+      setRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+    } catch (err) {
+      console.log("Error while fetching data", err);
+    }
+  };
 
   const onSearchClick = (text) => {
-    const updatedList = restaurantList.filter((restaurant) =>
+    const updatedList = allRestaurants.filter((restaurant) =>
       restaurant.data.cuisines.find((cuisine) =>
         cuisine.toLowerCase().includes(text.toLowerCase())
       )
     );
-   
+
     setRestaurants(updatedList);
   };
 
   const findCuisine = (txt) => {
     debounce(2000, onSearchClick)(txt);
   };
-  return (
+
+  return allRestaurants.length == 0 ? (
+    <Shimmer />
+  ) : (
     <>
       <input
         type="text"
@@ -53,9 +74,13 @@ const Body = () => {
         Search
       </button> */}
       <div className="list">
-        {restaurants.map((restaurant) => {
-          return <Restaurant {...restaurant.data} />;
-        })}
+        {restaurants.length === 0 ? (
+          <h3>No Restaurant found for your search...!!!</h3>
+        ) : (
+          restaurants.map((restaurant) => {
+            return <Restaurant key={restaurant.data.id} {...restaurant.data} />;
+          })
+        )}
       </div>
     </>
   );

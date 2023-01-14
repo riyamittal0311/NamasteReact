@@ -28,19 +28,44 @@
 .list{
     display: flex;
     flex-wrap: wrap;
-    margin: 10px;
-  
 }
-.item{
+.list .item{
     width: 200px;
     border: 1px solid  black;
     padding: 10px;
-    margin-right: 10px;
+    margin: 10px;
 }
-.item h3,h4,h5{
+.list .item h3,h4,h5{
   margin: 0;
   padding-top: 10px;
 }
-.item img{
+.list .item img{
    width: 100%;
+}
+/*shimmer*/
+
+.shim{
+    display: flex;
+    flex-wrap: wrap; 
+    margin-top: 30px; 
+}
+
+.shim .shimmer{
+    width: 200px;
+    border: 1px solid  lightgray;
+    padding: 10px;
+    margin: 10px;
+}
+.shim .shimmer div{
+    height: 125px;
+    background-color: lightgray;
+}
+.shim .shimmer h3{
+    background-color: lightgray;
+    height: 10px;
+}
+
+.shim .shimmer h4{
+    background-color: lightgray;
+    height: 10px;
 }
