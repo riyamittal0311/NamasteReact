@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import Restaurant from "./Restaurant";
 import Shimmer from "./Shimmer";
@@ -55,15 +56,17 @@ const Body = () => {
     <Shimmer />
   ) : (
     <>
-      <input
-        type="text"
-        placeholder="Search cuisines..."
-        value={searchTxt}
-        onChange={(e) => {
-          setSearchTxt(e.target.value);
-          findCuisine(e.target.value);
-        }}
-      />
+      <div className="search">
+        <input
+          type="text"
+          placeholder="Search cuisines..."
+          value={searchTxt}
+          onChange={(e) => {
+            setSearchTxt(e.target.value);
+            findCuisine(e.target.value);
+          }}
+        />
+      </div>
       {/* <button
         type="button"
         onClick={() => {
@@ -78,7 +81,15 @@ const Body = () => {
           <h3>No Restaurant found for your search...!!!</h3>
         ) : (
           restaurants.map((restaurant) => {
-            return <Restaurant key={restaurant.data.id} {...restaurant.data} />;
+            return (
+              <Link
+                key={restaurant.data.id}
+                to={`/restaurant/${restaurant.data.id}`}
+              >
+                {" "}
+                <Restaurant {...restaurant.data} />
+              </Link>
+            );
           })
         )}
       </div>

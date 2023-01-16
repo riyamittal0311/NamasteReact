@@ -1,4 +1,5 @@
 import logo from "../../images/logo.jpg";
+import { Link } from "react-router-dom";
 
 const Title = () => {
   return (
@@ -13,10 +14,10 @@ const Header = () => {
       <Title />
       <div className="nav-items">
         <ul>
-          <li>Home</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
-          <li>Cart</li>
+          <li><Link to='/'><i class="fa fa-home" aria-hidden="true"></i> Home</Link></li>
+          <li><Link to='/about'><i class="fa fa-info" aria-hidden="true"></i> About Us</Link></li>
+          <li><Link  to='/contact'><i class="fa fa-phone-square" aria-hidden="true"></i> Contact Us </Link></li>
+          <li><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart</li>
         </ul>
       </div>
     </div>
