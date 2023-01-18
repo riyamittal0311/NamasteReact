@@ -82,13 +82,17 @@ const Body = () => {
         ) : (
           restaurants.map((restaurant) => {
             return (
-              <Link
-                key={restaurant.data.id}
-                to={`/restaurant/${restaurant.data.id}`}
+              <div
+                onMouseEnter={(e) => console.log(e.target)}
+                onMouseLeave={(e) => console.log(e.target)}
               >
-                {" "}
-                <Restaurant {...restaurant.data} />
-              </Link>
+                <Link
+                  key={restaurant.data.id}
+                  to={`/restaurant/${restaurant.data.id}`}
+                >
+                  <Restaurant {...restaurant.data} />
+                </Link>
+              </div>
             );
           })
         )}

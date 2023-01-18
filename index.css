@@ -50,10 +50,18 @@ body{
     flex-wrap: wrap;
 }
 .list .item{
+    position: relative;
     width: 200px;
     padding: 10px;
     margin: 10px;
     border: 1px solid white;
+}
+.menu-card{
+    position: absolute;
+    width: 200px;
+    min-height: 250px;
+    background-color: aliceblue;
+    z-index: 20;
 }
 .list .item:hover{
     border: 1px solid black;     
@@ -67,7 +75,7 @@ body{
   padding-top: 10px;
 }
 
-.list >a{
+.list >div>a{
   text-decoration: none;
   color: black;
   }
@@ -116,6 +124,7 @@ body{
 }
 
 /* quick -view */
+
 .quick-view {
    opacity: 0;
 }
