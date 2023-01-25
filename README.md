@@ -1,3 +1,12 @@
 # NamasteReact
-Chapter 03 It contains some theory concepts in a docx file as well  and how one can create React elements  using React.createElement Vs Jsx and a header using React jsx
-
+Chapter 06 
+docx contains the following concepts
+1. Expression in JS
+2. Statement in JS
+3. Monolithic Vs microservices Arch
+4. UseEffect hook
+5. Shimmer ui
+6. Optional Chaining
+7. async await
+8. await data.json()
+9. CORS
