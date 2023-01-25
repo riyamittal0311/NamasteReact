@@ -51,6 +51,7 @@ const Body = () => {
   const findCuisine = (txt) => {
     debounce(2000, onSearchClick)(txt);
   };
+  // console.log( useState(""),'useState console',useEffect())
 
   return allRestaurants.length == 0 ? (
     <Shimmer />
