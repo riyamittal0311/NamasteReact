@@ -27,9 +27,10 @@ const Banner = ({
 
       <div className="offer">
         <ul>
-          {descriptionList.map((item,idx) => (
+          {descriptionList.map((item, idx) => (
             <li key={idx}>
-              <i className="fa fa-certificate" aria-hidden="true"></i> {item?.meta}
+              <i className="fa fa-certificate" aria-hidden="true"></i>{" "}
+              {item?.meta}
             </li>
           ))}
         </ul>
@@ -39,11 +40,38 @@ const Banner = ({
 };
 
 const Menu = ({ items }) => {
+  const [isVeg, setIsVeg] = useState(false);
+  const [restaurantItems, setRestaurantItems] = useState(
+    ...Object.values(items)
+  );
+
+  useEffect(() => {
+    const filterItems = Object.values(items).filter((item) => {
+      if (isVeg) {
+        return item.isVeg === 1;
+      }
+      return item;
+    });
+    setRestaurantItems(filterItems);
+  }, [isVeg]);
+
   return (
     <div className="menu">
-      <h2>Menu Items</h2>
-      <hr/>
-      {Object.values(items).map((item) => (
+      <div className="heading">
+        <h2>Menu Items</h2>
+        <div className="filter">
+          <input
+            type="checkbox"
+            value={isVeg}
+            onClick={() => setIsVeg(!isVeg)}
+          />
+          <i className={`fa fa-dot-circle-o veg `} aria-hidden="true"></i>
+          <h5>Veg</h5>
+        </div>
+      </div>
+
+      <hr />
+      {Object.values(restaurantItems).map((item) => (
         <div key={item?.id} className="item">
           <div className="bestseller">
             <span>
@@ -59,7 +87,7 @@ const Menu = ({ items }) => {
           <div className="card">
             <div>
               <h3>{item?.name}</h3>
-              <h3>Price: ₹{parseInt(+(item?.price)/100)}</h3>
+              <h3>Price: ₹{parseInt(+item?.price / 100)}</h3>
               <p>{item?.description}</p>
             </div>
             <div className="img-card">

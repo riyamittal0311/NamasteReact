@@ -64,7 +64,9 @@ body{
     z-index: 20;
 }
 .list .item:hover{
-    border: 1px solid black;     
+  border: 1px solid lightgrey;
+  box-shadow: 1px 1px 7px lightgrey;
+
 }
 
 .list .item:hover > .quick-view{
@@ -227,6 +229,25 @@ body{
   .menu  .img-card >img{
     width: 100%;
   }
+
+  /*menu header*/
+  .menu .heading{
+   display: flex;
+  }
+  .menu .heading .filter{
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+  }
+  .menu .heading .filter h5{
+   padding: 0;
+   padding-left: 5px;
+   color: green;
+  }
+  .menu .heading .filter input{
+      accent-color: green;
+  }
+
 
   /* online offline */
 
