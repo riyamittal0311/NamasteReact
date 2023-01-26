@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import useRestaurant from "../util/useRestaurant";
 import { IMG_CDN } from "../config";
 
 const Banner = ({
@@ -26,9 +27,9 @@ const Banner = ({
 
       <div className="offer">
         <ul>
-          {descriptionList.map((item) => (
-            <li>
-              <i class="fa fa-certificate" aria-hidden="true"></i> {item?.meta}
+          {descriptionList.map((item,idx) => (
+            <li key={idx}>
+              <i className="fa fa-certificate" aria-hidden="true"></i> {item?.meta}
             </li>
           ))}
         </ul>
@@ -41,6 +42,7 @@ const Menu = ({ items }) => {
   return (
     <div className="menu">
       <h2>Menu Items</h2>
+      <hr/>
       {Object.values(items).map((item) => (
         <div key={item?.id} className="item">
           <div className="bestseller">
@@ -57,7 +59,7 @@ const Menu = ({ items }) => {
           <div className="card">
             <div>
               <h3>{item?.name}</h3>
-              <h3>Price:</h3>
+              <h3>Price: ₹{parseInt(+(item?.price)/100)}</h3>
               <p>{item?.description}</p>
             </div>
             <div className="img-card">
@@ -71,19 +73,9 @@ const Menu = ({ items }) => {
   );
 };
 const RestaurantMenu = () => {
-  const [restaurant, setRestaurant] = useState(null);
   const { resId } = useParams();
-  useEffect(() => {
-    fetchRestaurantMenu();
-  }, []);
+  const restaurant = useRestaurant(resId);
 
-  async function fetchRestaurantMenu() {
-    const data = await fetch(
-      `https://www.swiggy.com/dapi/menu/v4/full?lat=28.7330075&lng=77.1093233&menuId=${resId}`
-    );
-    const json = await data.json();
-    setRestaurant(json?.data);
-  }
   return restaurant ? (
     <div>
       <Banner

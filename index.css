@@ -227,6 +227,29 @@ body{
   .menu  .img-card >img{
     width: 100%;
   }
+
+  /* online offline */
+
+  .online{
+    color: green;
+  }
+
+  .offline{
+    color: red;
+  }
+.price{
+  color: rgb(86, 86, 86);
+  font-weight: 200;
+}
+.ribbon{
+  position: absolute;
+  background-color: #3A3C41;
+  color: white;
+  padding: 5px 10px;
+  left: 1px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
 /* footer */
 .footer{
 

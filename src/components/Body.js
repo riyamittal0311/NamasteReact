@@ -3,23 +3,15 @@ import { Link } from "react-router-dom";
 
 import Restaurant from "./Restaurant";
 import Shimmer from "./Shimmer";
-
-const debounce = (delay, fn) => {
-  let timer;
-  return function () {
-    const context = this;
-    const arg = arguments;
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn.apply(context, arg);
-    }, delay);
-  };
-};
+import { debounce } from "../util/helper";
+import useOnline from "../util/useOnline";
 
 const Body = () => {
   const [searchTxt, setSearchTxt] = useState("");
   const [restaurants, setRestaurants] = useState([]);
   const [allRestaurants, setAllRestaurants] = useState([]);
+
+  const isOnline = useOnline();
 
   useEffect(() => {
     fetchRestaurants();
@@ -86,10 +78,11 @@ const Body = () => {
               <div
                 onMouseEnter={(e) => console.log(e.target)}
                 onMouseLeave={(e) => console.log(e.target)}
+                key={restaurant.data.id}
               >
                 <Link
                   key={restaurant.data.id}
-                  to={`/restaurant/${restaurant.data.id}`}
+                  to={`${isOnline ? `/restaurant/${restaurant.data.id}` : ""} `}
                 >
                   <Restaurant {...restaurant.data} />
                 </Link>
