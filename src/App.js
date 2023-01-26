@@ -23,7 +23,7 @@ const App = () => {
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <App test='testDATA' />,
     errorElement: <Error />,
     children: [
       {
