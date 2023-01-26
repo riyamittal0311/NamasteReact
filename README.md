@@ -1,3 +1,4 @@
 # NamasteReact
-Chapter 03 It contains some theory concepts in a docx file as well  and how one can create React elements  using React.createElement Vs Jsx and a header using React jsx
+all the updated code is in main branch
+demo is runnig at https://food-app-7ef8e4.netlify.app/
 
