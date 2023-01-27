@@ -5,22 +5,31 @@ import Restaurant from "./Restaurant";
 import Shimmer from "./Shimmer";
 import { debounce } from "../util/helper";
 import useOnline from "../util/useOnline";
+import useLocation from "../util/useLocation";
 
 const Body = () => {
   const [searchTxt, setSearchTxt] = useState("");
   const [restaurants, setRestaurants] = useState([]);
   const [allRestaurants, setAllRestaurants] = useState([]);
+  const [isLocationAllowed, setIsLocationAllowed] = useState(true);
 
   const isOnline = useOnline();
+  const userLocation = useLocation();
 
   useEffect(() => {
-    fetchRestaurants();
-  }, []);
+    if (userLocation?.lat) {
+      console.log(userLocation, "useEffect");
+      setIsLocationAllowed(true);
+      fetchRestaurants();
+    } else {
+      setIsLocationAllowed(false);
+    }
+  }, [userLocation]);
 
   const fetchRestaurants = async () => {
     try {
       const data = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7330075&lng=77.1093233&page_type=DESKTOP_WEB_LISTING"
+        `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${userLocation.lat}&lng=${userLocation.long}&page_type=DESKTOP_WEB_LISTING`
       );
       const json = await data.json();
       setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
@@ -43,9 +52,11 @@ const Body = () => {
   const findCuisine = (txt) => {
     debounce(2000, onSearchClick)(txt);
   };
-  // console.log( useState(""),'useState console',useEffect())
+  if (!isLocationAllowed) {
+    return <h2>Please allow your  location and then reload the page to fetch menu items</h2>;
+  }
 
-  return allRestaurants.length == 0 ? (
+  return isLocationAllowed && allRestaurants.length == 0 ? (
     <Shimmer />
   ) : (
     <>
@@ -76,8 +87,8 @@ const Body = () => {
           restaurants.map((restaurant) => {
             return (
               <div
-                onMouseEnter={(e) => console.log(e.target)}
-                onMouseLeave={(e) => console.log(e.target)}
+                // onMouseEnter={(e) => console.log(e.target)}
+                // onMouseLeave={(e) => console.log(e.target)}
                 key={restaurant.data.id}
               >
                 <Link
