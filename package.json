@@ -19,10 +19,12 @@
   "homepage": "https://github.com/riyamittal0311/NamasteReact#readme",
   "devDependencies": {
     "parcel": "^2.8.2",
-    "process": "^0.11.10"
+    "process": "^0.11.10",
+    "tailwindcss": "^3.2.4"
   },
   "dependencies": {
     "formik": "^2.2.9",
+    "postcss": "^8.4.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.2"

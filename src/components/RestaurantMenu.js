@@ -12,24 +12,24 @@ const Banner = ({
   descriptionList,
 }) => {
   return (
-    <div className="banner">
-      <div className="banner-img">
-        <img src={`${IMG_CDN}/${cloudinaryImageId}`} alt="food" />
+    <div className="flex bg-black text-white h-52 justify-around mt-5">
+      <div className="flex items-center">
+        <img className="h-40" src={`${IMG_CDN}/${cloudinaryImageId}`} alt="food" />
       </div>
 
-      <div className="list-items">
+      <div className="flex ml-5 mr-5 items-center flex-col justify-center">
         <h2>{name}</h2>
-        <ul>
-          <li>{cuisines.join(", ")}</li>
-          <li>{locality}</li>
+        <ul className="flex flex-col items-center">
+          <li className="p-2">{cuisines.join(", ")}</li>
+          <li className="p-2">{locality}</li>
         </ul>
       </div>
 
-      <div className="offer">
-        <ul>
+      <div className="flex items-center">
+        <ul className="p-5 border-2">
           {descriptionList.map((item, idx) => (
-            <li key={idx}>
-              <i className="fa fa-certificate" aria-hidden="true"></i>{" "}
+            <li className="p-2 mr-1"  key={idx}>
+              <i className="fa fa-certificate pr-2" aria-hidden="true"></i>
               {item?.meta}
             </li>
           ))}
@@ -56,43 +56,44 @@ const Menu = ({ items }) => {
   }, [isVeg]);
 
   return (
-    <div className="menu">
-      <div className="heading">
-        <h2>Menu Items</h2>
-        <div className="filter">
+    <div>
+      <div className="flex m-4 ">
+        <h2 className="ml-5 text-xl font-bold">Menu Items</h2>
+        <div className="flex items-center ml-4">
           <input
+          className="accent-green-700"
             type="checkbox"
             value={isVeg}
             onClick={() => setIsVeg(!isVeg)}
           />
-          <i className={`fa fa-dot-circle-o veg `} aria-hidden="true"></i>
-          <h5>Veg</h5>
+          <i className={`fa fa-dot-circle-o text-green-600 pl-2 `} aria-hidden="true"></i>
+          <h5 className="pl-1 text-xs font-bold">Veg</h5>
         </div>
       </div>
 
       <hr />
       {Object.values(restaurantItems).map((item) => (
-        <div key={item?.id} className="item">
-          <div className="bestseller">
-            <span>
+        <div key={item?.id} className="m-4 p-2 shadow-md rounded-md border-2 hover:bg-blue-50">
+          <div className="flex">
+            <span >
               <i
                 className={`fa fa-dot-circle-o ${
-                  item.isVeg === 1 ? "veg" : "non-veg"
+                  item.isVeg === 1 ? "text-green-700" : "text-red-700"
                 }`}
                 aria-hidden="true"
               ></i>
             </span>
-            {item.isBestSeller ? <span>Bestseller</span> : null}
+            {item.isBestSeller ? <span className="flex items-center ml-3 text-red-600 font-bold text-xs">Bestseller</span> : null}
           </div>
-          <div className="card">
+          <div className="flex justify-between">
             <div>
-              <h3>{item?.name}</h3>
-              <h3>Price: ₹{parseInt(+item?.price / 100)}</h3>
-              <p>{item?.description}</p>
+              <h3 className="font-bold">{item?.name}</h3>
+              <h3 className="text-sm mt-2 mb-2">Price: <span className="font-bold">₹{parseInt(+item?.price / 100)}</span></h3>
+              <p className="text-gray-500 text-xs ">{item?.description}</p>
             </div>
-            <div className="img-card">
+            <div className="flex justify-center flex-col w-28">
               <img src={`${IMG_CDN}/${item?.cloudinaryImageId}`} />
-              <button type="button">Add</button>
+              <button className="text-sm p-1 font-bold border-2 hover:bg-gray-100" type="button">Add</button>
             </div>
           </div>
         </div>

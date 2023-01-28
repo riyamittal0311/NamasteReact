@@ -6,21 +6,24 @@ import Shimmer from "./Shimmer";
 import { debounce } from "../util/helper";
 import useOnline from "../util/useOnline";
 import useLocation from "../util/useLocation";
+import useLocalStorage from "../util/useLocalStorage";
 
 const Body = () => {
   const [searchTxt, setSearchTxt] = useState("");
   const [restaurants, setRestaurants] = useState([]);
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [isLocationAllowed, setIsLocationAllowed] = useState(true);
+  const [val, setVal] = useLocalStorage("userLocation", null);
 
   const isOnline = useOnline();
   const userLocation = useLocation();
 
   useEffect(() => {
     if (userLocation?.lat) {
-      console.log(userLocation, "useEffect");
       setIsLocationAllowed(true);
       fetchRestaurants();
+      setVal(userLocation);
+      console.log("print val", val);
     } else {
       setIsLocationAllowed(false);
     }
@@ -53,16 +56,21 @@ const Body = () => {
     debounce(2000, onSearchClick)(txt);
   };
   if (!isLocationAllowed) {
-    return <h2>Please allow your  location and then reload the page to fetch menu items</h2>;
+    return (
+      <h2>
+        Please allow your location and then reload the page to fetch menu items
+      </h2>
+    );
   }
 
-  return isLocationAllowed && allRestaurants.length == 0 ? (
+  return isLocationAllowed && allRestaurants?.length == 0 ? (
     <Shimmer />
   ) : (
     <>
-      <div className="search">
+      <div className="flex justify-center mt-3 mb-2">
         <input
           type="text"
+          className="p-2 border-2 border-gray-200 shadow-lg w-1/2 rounded-md"
           placeholder="Search cuisines..."
           value={searchTxt}
           onChange={(e) => {
@@ -80,11 +88,11 @@ const Body = () => {
       >
         Search
       </button> */}
-      <div className="list">
-        {restaurants.length === 0 ? (
+      <div className="flex  justify-center flex-wrap">
+        {restaurants?.length === 0 ? (
           <h3>No Restaurant found for your search...!!!</h3>
         ) : (
-          restaurants.map((restaurant) => {
+          restaurants && restaurants.map((restaurant) => {
             return (
               <div
                 // onMouseEnter={(e) => console.log(e.target)}
