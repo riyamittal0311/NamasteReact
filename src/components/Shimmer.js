@@ -5,7 +5,7 @@ const Shimmer = () => {
       {Array(10)
         .fill("")
         .map((el, idx) => (
-          <div key={idx} className="w-52 p-3 m-3">
+          <div key={idx} className=" animate-pulse w-52 p-3 m-3">
             <div className="h-32  bg-slate-300 "></div>
             <h3 className="h-3 mt-2 bg-slate-300 "> </h3>
             <h4 className="h-3 mt-2  bg-slate-300 "></h4>
