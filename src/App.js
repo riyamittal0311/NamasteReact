@@ -11,11 +11,13 @@ import Footer from "./components/Footer";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Login from "./components/Login";
 import { UserContext } from "./util/UserContext";
+import { FooterContext } from "./util/FooterContext";
 const About = lazy(() => import("./components/About"));
 
 const App = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [user,setUser] = useState({name:''})
+  const [footerContent ,setFooterContent] = useState({footer:'FOOTER'})
 
   return (
     <>
@@ -26,7 +28,9 @@ const App = () => {
           <>
             <Header />
             <Outlet />
+            <FooterContext.Provider value={footerContent}>
             <Footer />
+            </FooterContext.Provider>
           </>
         )}
       </UserContext.Provider>
