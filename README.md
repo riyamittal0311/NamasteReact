@@ -1,3 +1,6 @@
 # NamasteReact
-all the updated code is in main branch
-Demo is runing at https://food-app-7ef8e4.netlify.app/
+Theory docx contains the following topics
+1.Prop drilling
+2. state lifting
+3. COntext provider and consumer
+4. if you do not pass value to provider does it take the default value?
