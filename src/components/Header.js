@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import logo from "../../images/logo.jpg";
 import { Link } from "react-router-dom";
 
+import { UserContext } from "../util/UserContext";
 import useOnline from "../util/useOnline";
 
 const Title = () => {
@@ -13,9 +14,13 @@ const Title = () => {
   );
 };
 
-const SideBar = ({ isOnline ,click}) => {
+const SideBar = ({ isOnline, click }) => {
+  const { user } = useContext(UserContext);
   return (
-    <div onClick={(e)=>click(e)} className="w-1/4 bg-blue-50 z-10  h-full fixed left-0 lg:hidden md:hidden  block motion-reduce:animate-pulse">
+    <div
+      onClick={(e) => click(e)}
+      className="w-1/4 bg-blue-50 z-10  h-full fixed left-0 lg:hidden md:hidden  block motion-reduce:animate-pulse"
+    >
       <div className="flex items-center">
         <ul className="flex flex-col mt-14  items-start  ml-2">
           <li className="p-2 mr-10 hover:text-cyan-700">
@@ -46,9 +51,10 @@ const SideBar = ({ isOnline ,click}) => {
                   isOnline ? "text-green-700" : "text-red-700"
                 }`}
                 aria-hidden="true"
-              ></i>
+              ></i><span className="text-xs font-bold"> Hi {user.name}</span>
               <h6 className="text-xs font-medium">
-                {isOnline ? "Online" : "Offline"}
+                {isOnline ? "(Online)" : "(Offline)"}
+
               </h6>
             </a>
           </li>
@@ -57,9 +63,11 @@ const SideBar = ({ isOnline ,click}) => {
     </div>
   );
 };
+
+
 const Header = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
-
+  const { user } = useContext(UserContext);
   const isOnline = useOnline();
   return (
     <div className="flex justify-between m-2 mt-0 ml-0 mr-0 border-1 shadow-lg lg:flex-row md:flex-row flex-row-reverse sticky z-10 bg-white top-0 ">
@@ -95,8 +103,12 @@ const Header = () => {
                 }`}
                 aria-hidden="true"
               ></i>
+              <span className="text-xs font-bold">
+                {" "}
+                Hi {user.name}
+              </span>
               <h6 className="text-xs font-medium">
-                {isOnline ? "Online" : "Offline"}
+                {isOnline ? "(Online)" : "(Offline)"}
               </h6>
             </a>
           </li>
@@ -110,7 +122,12 @@ const Header = () => {
           <span className="h-1 w-5 mb-1 bg-black block"></span>
         </div>
       </div>
-      {openSideBar && <SideBar click={(e)=>setOpenSideBar(!openSideBar)} isOnline={isOnline} />}
+      {openSideBar && (
+        <SideBar
+          click={(e) => setOpenSideBar(!openSideBar)}
+          isOnline={isOnline}
+        />
+      )}
     </div>
   );
 };

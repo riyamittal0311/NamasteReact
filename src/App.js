@@ -1,4 +1,4 @@
-import React, { Suspense,lazy } from "react";
+import React, { Suspense, lazy, useState } from "react";
 import ReactDom from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
@@ -9,14 +9,27 @@ import Error from "./components/Error";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import RestaurantMenu from "./components/RestaurantMenu";
+import Login from "./components/Login";
+import { UserContext } from "./util/UserContext";
 const About = lazy(() => import("./components/About"));
 
 const App = () => {
+  const [isLogin, setIsLogin] = useState(false);
+  const [user,setUser] = useState({name:''})
+
   return (
     <>
-      <Header />
-      <Outlet />
-      <Footer />
+      <UserContext.Provider value={{ user,setUser, isLogin, setIsLogin }}>
+        {!isLogin ? (
+          <Login />
+        ) : (
+          <>
+            <Header />
+            <Outlet />
+            <Footer />
+          </>
+        )}
+      </UserContext.Provider>
     </>
   );
 };
