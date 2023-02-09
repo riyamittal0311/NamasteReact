@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useState } from "react";
 import ReactDom from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -10,7 +11,9 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Login from "./components/Login";
+import Cart from "./components/Cart";
 import { UserContext } from "./util/UserContext";
+import { store } from './util/store';
 const About = lazy(() => import("./components/About"));
 
 const App = () => {
@@ -18,7 +21,7 @@ const App = () => {
   const [user,setUser] = useState({name:''})
 
   return (
-    <>
+    <Provider store={store}>
       <UserContext.Provider value={{ user,setUser, isLogin, setIsLogin }}>
         {!isLogin ? (
           <Login />
@@ -30,7 +33,7 @@ const App = () => {
           </>
         )}
       </UserContext.Provider>
-    </>
+    </Provider>
   );
 };
 
@@ -60,6 +63,10 @@ const appRouter = createBrowserRouter([
         path: "/restaurant/:resId",
         element: <RestaurantMenu />,
       },
+      {
+        path:'cart',
+        element:<Cart/>
+      }
     ],
   },
 ]);

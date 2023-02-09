@@ -15,7 +15,7 @@ const useRestaurant = (id) => {
     setRestaurantData(json?.data);
   }
 
-  return restaurantData;
+  return [restaurantData];
 };
 
 export default useRestaurant;
