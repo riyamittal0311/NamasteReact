@@ -13,14 +13,14 @@ const FoodItem = ({ items }) => {
 const RenderItem = ({ item }) => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const [itemCount, setItemCount] = useState(
-    cartItems.find((cartItem) => cartItem.id == item.id)?.qty
+    cartItems.find((cartItem) => cartItem.id == item.id)?.qty > 0
       ? cartItems.find((cartItem) => cartItem.id == item.id)?.qty
       : 0
   );
+  console.log('check',cartItems , item, cartItems.find((cartItem) => cartItem.id == item.id)?.qty)
   const dispatch = useDispatch();
 
   const handleAddItem = (item) => {
-    console.log("called add");
     setItemCount((count) => count + 1);
     dispatch(addToCart(item));
   };

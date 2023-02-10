@@ -11,9 +11,10 @@ const Banner = ({
   cuisines,
   locality,
   descriptionList,
+  bgColor
 }) => {
   return (
-    <div className="flex bg-black text-white h-52 justify-around mt-5  sticky top-16 z-10">
+    <div className={`flex ${bgColor ? `bg-${bgColor}`:'bg-black'} text-white h-52 justify-around mt-5  sticky top-16 z-10`}>
       <div className="flex items-center">
         <img
           className="h-40"
@@ -46,14 +47,14 @@ const Banner = ({
 
 const SideMenu = ({ sideMenuCategory }) => {
   return (
-    <div className="border-r p-2 m-2 mr-0 sticky ">
+    <div className="border-r p-2 m-2 mr-0 sticky w-1/2">
       <ul className="flex flex-col items-end sticky top-72">
         {sideMenuCategory.map((category) => (
           <li
             key={category}
-            className="mb-2 text-sm font-semibold vi active:text-cyan-700"
+            className="mb-2 text-sm font-semibold vi hover:text-cyan-700"
           >
-            <a className="active:text-cyan-700" href={`#cat-${category}`}>
+            <a href={`#cat-${category}`}>
               {category}
             </a>
           </li>
