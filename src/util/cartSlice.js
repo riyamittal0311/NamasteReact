@@ -36,10 +36,11 @@ const cartSlice = createSlice({
         state.cartItems.splice(removeItemIdx, 1);
       }
       state.totalPrice =
-      state.totalPrice - parseInt(+action.payload?.price / 100);
+        state.totalPrice - parseInt(+action.payload?.price / 100);
     },
   },
 });
 
 export const { addToCart, clearCart, removeItems } = cartSlice.actions;
 export default cartSlice.reducer;
+

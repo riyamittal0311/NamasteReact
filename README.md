@@ -1,6 +1,6 @@
 # NamasteReact
 Docx contain the following concepts
-1. Different way of writing css
-2. how to configure tailwind
-3. in tailwind config what  does the key means
-4. why do we has .postcssrc file
+1. useContext Vs Redux
+2. Advantages of using Redux toolkit over redux
+3. Explain dispatcher , reducer , slice , selector
+4. Explain createSlice and configuration it takes
