@@ -1,6 +1,2 @@
 # NamasteReact
-Docx contain the following concepts
-1. Different way of writing css
-2. how to configure tailwind
-3. in tailwind config what  does the key means
-4. why do we has .postcssrc file
+all the updated code is in main branch Demo is runing at https://food-app-7ef8e4.netlify.app/
