@@ -4,9 +4,22 @@ import { addToCart, removeItems } from "../util/cartSlice";
 
 import { IMG_CDN } from "../config";
 
-const FoodItem = ({ items }) => {
+const FoodItem = ({ items ,isVeg }) => {
+  const [foodItems,setFoodItems] = useState(items)
+  useEffect(()=>{
+    if(foodItems && foodItems.length>0){
+      const filterItems = items.filter(item=>{
+        if(isVeg){
+          return item.isVeg ===1
+        }
+        return item
+      })
+      setFoodItems(filterItems)
+    }
+
+  },[isVeg])
   return (
-    <>{items.length > 0 && items.map((item) => <RenderItem item={item} />)}</>
+    <>{foodItems.length > 0 && foodItems.map((item) => <RenderItem item={item} />)}</>
   );
 };
 
@@ -17,7 +30,6 @@ const RenderItem = ({ item }) => {
       ? cartItems.find((cartItem) => cartItem.id == item.id)?.qty
       : 0
   );
-  console.log('check',cartItems , item, cartItems.find((cartItem) => cartItem.id == item.id)?.qty)
   const dispatch = useDispatch();
 
   const handleAddItem = (item) => {

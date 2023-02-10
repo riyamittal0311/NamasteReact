@@ -23,7 +23,6 @@ const Body = () => {
       setIsLocationAllowed(true);
       fetchRestaurants();
       setVal(userLocation);
-      console.log("print val", val);
     } else {
       setIsLocationAllowed(false);
     }

@@ -11,10 +11,14 @@ const Banner = ({
   cuisines,
   locality,
   descriptionList,
-  bgColor
+  bgColor,
 }) => {
   return (
-    <div className={`flex ${bgColor ? `bg-${bgColor}`:'bg-black'} text-white h-52 justify-around mt-5  sticky top-16 z-10`}>
+    <div
+      className={`flex ${
+        bgColor ? `bg-${bgColor}` : "bg-black"
+      } text-white h-52 justify-around mt-5  sticky top-16 z-10`}
+    >
       <div className="flex items-center">
         <img
           className="h-40"
@@ -45,18 +49,23 @@ const Banner = ({
   );
 };
 
-const SideMenu = ({ sideMenuCategory }) => {
+const SideMenu = ({
+  sideMenuCategory,
+  selectedSideItem,
+  setSelectedSideItem,
+}) => {
   return (
     <div className="border-r p-2 m-2 mr-0 sticky w-1/2">
       <ul className="flex flex-col items-end sticky top-72">
         {sideMenuCategory.map((category) => (
           <li
+            onClick={() => setSelectedSideItem(category)}
             key={category}
-            className="mb-2 text-sm font-semibold vi hover:text-cyan-700"
+            className={`mb-2 text-sm font-semibold vi hover:text-cyan-700 ${
+              selectedSideItem === category ? "text-cyan-700" : "text-black"
+            }`}
           >
-            <a href={`#cat-${category}`}>
-              {category}
-            </a>
+            <a href={`#cat-${category}`}>{category}</a>
           </li>
         ))}
       </ul>
@@ -66,17 +75,6 @@ const SideMenu = ({ sideMenuCategory }) => {
 
 const Menu = ({ items }) => {
   const [isVeg, setIsVeg] = useState(false);
-  const [restaurantItems, setRestaurantItems] = useState({ ...items });
-
-  // useEffect(() => {
-  //   const filterItems = Object.values(items).filter((item) => {
-  //     if (isVeg) {
-  //       return item.isVeg === 1;
-  //     }
-  //     return item;
-  //   });
-  //   setRestaurantItems(filterItems);
-  // }, [isVeg]);
 
   return (
     <div>
@@ -103,7 +101,11 @@ const Menu = ({ items }) => {
               {category}
             </h2>
 
-            <FoodItem key={items[category]} items={items[category]} />
+            <FoodItem
+              key={items[category]}
+              items={items[category]}
+              isVeg={isVeg}
+            />
 
             <hr />
           </div>
@@ -116,6 +118,7 @@ const RestaurantMenu = () => {
   const [restaurant] = useRestaurant(resId);
   const [restaurantItems, setRestaurantItems] = useState(null);
   const [sideMenuCategory, setSideMenuCategory] = useState([]);
+  const [selectedSideItem, setSelectedSideItem] = useState("");
 
   useEffect(() => {
     if (restaurant && Object.values(restaurant?.menu?.items)?.length > 0) {
@@ -132,7 +135,6 @@ const RestaurantMenu = () => {
         },
         {}
       );
-      console.log(sortedByCategory, "ITEMS!");
       setSideMenuCategory([...sideMenuCategory]);
       setRestaurantItems({ ...sortedByCategory });
     }
@@ -148,7 +150,11 @@ const RestaurantMenu = () => {
         descriptionList={restaurant?.aggregatedDiscountInfo?.descriptionList}
       />
       <div className="flex">
-        <SideMenu sideMenuCategory={sideMenuCategory} />
+        <SideMenu
+          selectedSideItem={selectedSideItem}
+          setSelectedSideItem={setSelectedSideItem}
+          sideMenuCategory={sideMenuCategory}
+        />
         <Menu items={restaurantItems} />
       </div>
     </div>
